@@ -15,9 +15,9 @@ echo "---------------"
 node storyteller.js -s havamal.txt -l havamal.log
 whitespace
 
+bash org-agenda.sh
+
 echo "weather berkeley ca"
 echo "~~~~~~~~~~~~~~~~~~~~"
 node weather.js
 whitespace
-
-bash org-agenda.sh

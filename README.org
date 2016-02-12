@@ -62,7 +62,12 @@ emacs -batch -eval '(org-batch-agenda "a"
 org-agenda-span (quote day) 
 org-agenda-files 
 (quote ("~/BitTorrent Sync/Notes/"))
-)))'
+)))' | 
+sed -e 's/fun://g' |  # remove fun: bits
+sed -e 's/spring://g'  |  # remove spring: bits
+sed -e 's/^[ \t]*//' |  # remove trailing whitespace
+sed '/now/d' | # remove the line that says now
+sed 's/\.\.\.\.\.\.\ /\.\.\./g' # remove extraneous dots
 #+END_SRC
 
 *** DONE storyteller.js
@@ -114,7 +119,6 @@ fs.writeFileSync(argv.l, passage_num++)
 #+END_SRC
 
 *** DONE weather.js
-CLOSED: [2016-02-11 Thu 23:33]
 
 this prints the weather in berkeley
 
@@ -172,6 +176,11 @@ echo "---------------"
 node storyteller.js -s havamal.txt -l havamal.log
 whitespace
 #+END_SRC
+*** DONE my org agenda for the day
+CLOSED: [2016-02-11 Thu 21:52]
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+bash org-agenda.sh
+#+END_SRC
 *** DONE the weather 
 CLOSED: [2016-02-11 Thu 23:34]
 #+BEGIN_SRC shell :tangle make-wakeup-script.sh
@@ -179,11 +188,6 @@ echo "weather berkeley ca"
 echo "~~~~~~~~~~~~~~~~~~~~"
 node weather.js
 whitespace
-#+END_SRC
-*** DONE my org agenda for the day
-CLOSED: [2016-02-11 Thu 21:52]
-#+BEGIN_SRC shell :tangle make-wakeup-script.sh
-bash org-agenda.sh
 #+END_SRC
 
 ** DONE mgmm.sh
