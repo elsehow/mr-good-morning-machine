@@ -17,4 +17,4 @@ var passage = story.split('\n\n')[passage_num]
 console.log(passage)
 // finally, we increment line 
 // and write this updated number to the log file passed in as -l
-fs.writeFileSync(argv.l, passage_num++)
+fs.writeFileSync(argv.l, passage_num+1)

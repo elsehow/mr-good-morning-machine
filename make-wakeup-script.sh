@@ -16,6 +16,7 @@ node storyteller.js -s havamal.txt -l havamal.log
 whitespace
 
 bash org-agenda.sh
+whitespace
 
 echo "weather berkeley ca"
 echo "~~~~~~~~~~~~~~~~~~~~"

@@ -79,8 +79,6 @@ storyteller.js lets us tell stories, one bit at a time, over many mornigns
 we pass in a story -s and a logfile -l
 
 #+BEGIN_SRC shell
-
-**** 
 node storyteller.js -s havamal.txt -l havamal.log
 #+END_SRC
 
@@ -115,7 +113,7 @@ var passage = story.split('\n\n')[passage_num]
 console.log(passage)
 // finally, we increment line 
 // and write this updated number to the log file passed in as -l
-fs.writeFileSync(argv.l, passage_num++)
+fs.writeFileSync(argv.l, passage_num+1)
 #+END_SRC
 
 *** DONE weather.js
@@ -180,6 +178,7 @@ whitespace
 CLOSED: [2016-02-11 Thu 21:52]
 #+BEGIN_SRC shell :tangle make-wakeup-script.sh
 bash org-agenda.sh
+whitespace
 #+END_SRC
 *** DONE the weather 
 CLOSED: [2016-02-11 Thu 23:34]
