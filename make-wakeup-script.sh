@@ -3,9 +3,6 @@ function whitespace () {
   echo ""
   echo ""
 }
-# print a little greeting
-echo "good morning nick c:"
-echo "---------------------"
 
 echo "What did you dream about?"
 whitespace

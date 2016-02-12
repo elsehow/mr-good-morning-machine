@@ -32,8 +32,9 @@ bash mgmm.sh
 
 * DONE implementation
 CLOSED: [2016-02-11 Thu 23:36]
-
-** DONE org-agenda.sh
+** DONE helper scripts
+CLOSED: [2016-02-11 Thu 23:40]
+*** DONE org-agenda.sh
 CLOSED: [2016-02-11 Thu 22:10]
 
 this bash script can export our org agenda:
@@ -43,11 +44,11 @@ this bash script can export our org agenda:
 emacs -batch -eval '(org-batch-agenda "a" 
 org-agenda-span (quote day) 
 org-agenda-files 
-(quote ("~/Notes/"))
+(quote ("~/BitTorrent Sync/Notes/"))
 )))'
 #+END_SRC
 
-** DONE storyteller.js
+*** DONE storyteller.js
 CLOSED: [2016-02-11 Thu 22:35]
 
 #+BEGIN_SRC js :tangle storyteller.js
@@ -55,17 +56,17 @@ CLOSED: [2016-02-11 Thu 22:35]
 var fs = require('fs')
 #+END_SRC
 
-*** DONE we pass in a txt file -s and a log -l
+**** DONE we pass in a txt file -s and a log -l
 CLOSED: [2016-02-11 Thu 22:33]
 #+BEGIN_SRC js :tangle storyteller.js
 var argv = require('minimist')(process.argv.slice(2));
 #+END_SRC
-**** DONE try reading -s
+***** DONE try reading -s
 CLOSED: [2016-02-11 Thu 22:33]
 #+BEGIN_SRC js :tangle storyteller.js
 var story = fs.readFileSync(argv.s, 'utf8')
 #+END_SRC
-**** DONE create -l if it doesnt exist
+***** DONE create -l if it doesnt exist
 CLOSED: [2016-02-11 Thu 22:33]
 #+BEGIN_SRC js :tangle storyteller.js
 try {
@@ -74,23 +75,23 @@ try {
   fs.writeFileSync(argv.l, 0)
 }
 #+END_SRC
-**** DONE read -l
+***** DONE read -l
 CLOSED: [2016-02-11 Thu 22:22]
 #+BEGIN_SRC js :tangle storyteller.js
 var passage_num = parseInt(fs.readFileSync(argv.l, 'utf8'))
 #+END_SRC
-*** DONE the script prints to stdout a passage from the story
+**** DONE the script prints to stdout a passage from the story
 CLOSED: [2016-02-11 Thu 22:23]
 #+BEGIN_SRC js :tangle storyteller.js
 var passage = story.split('\n\n')[passage_num]
 console.log(passage)
 #+END_SRC
-*** TODO finally, we increment line and write this updated number to the log -l
+**** TODO finally, we increment line and write this updated number to the log -l
 #+BEGIN_SRC js :tangle storyteller.js
 fs.writeFileSync(argv.l, passage_num++)
 #+END_SRC
 
-** DONE weather.js
+*** DONE weather.js
 CLOSED: [2016-02-11 Thu 23:33]
 #+BEGIN_SRC js :tangle weather.js
 var request = require('request')
@@ -122,9 +123,6 @@ function whitespace () {
   echo ""
   echo ""
 }
-# print a little greeting
-echo "good morning nick c:"
-echo "---------------------"
 #+END_SRC
 
 *** DONE prompt me to write down my dreams
