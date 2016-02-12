@@ -46,12 +46,15 @@ just be sure to replace that path with the path to wherever you downloaded this 
 
 * DONE implementation
 CLOSED: [2016-02-11 Thu 23:36]
+
+here is all the code for mr good morning machine
+
 ** DONE helper scripts
 CLOSED: [2016-02-11 Thu 23:40]
 *** DONE org-agenda.sh
 CLOSED: [2016-02-11 Thu 22:10]
 
-this bash script can export our org agenda:
+this bash script will export our org agenda over stdout
 
 #+BEGIN_SRC shell :tangle org-agenda.sh
 #!/bin/bash
@@ -63,50 +66,60 @@ org-agenda-files
 #+END_SRC
 
 *** DONE storyteller.js
-CLOSED: [2016-02-11 Thu 22:35]
+
+storyteller.js lets us tell stories, one bit at a time, over many mornigns
+
+**** usage
+
+we pass in a story -s and a logfile -l
+
+#+BEGIN_SRC shell
+
+**** 
+node storyteller.js -s havamal.txt -l havamal.log
+#+END_SRC
+
+**** specs
+
+the story is a txt file, where "passages" are separated by =\n\n=
+
+the logfile holds our "passage" number in the story. it will be created if it doesn't exit.
+
+the logfile is updated (passage number is incremented) on every run.
+
+**** DONE implementation
+CLOSED: [2016-02-11 Thu 23:57]
 
 #+BEGIN_SRC js :tangle storyteller.js
 'use strict';
 var fs = require('fs')
-#+END_SRC
-
-**** DONE we pass in a txt file -s and a log -l
-CLOSED: [2016-02-11 Thu 22:33]
-#+BEGIN_SRC js :tangle storyteller.js
+// parse command line args
 var argv = require('minimist')(process.argv.slice(2));
-#+END_SRC
-***** DONE try reading -s
-CLOSED: [2016-02-11 Thu 22:33]
-#+BEGIN_SRC js :tangle storyteller.js
+// try reading -s
 var story = fs.readFileSync(argv.s, 'utf8')
-#+END_SRC
-***** DONE create -l if it doesnt exist
-CLOSED: [2016-02-11 Thu 22:33]
-#+BEGIN_SRC js :tangle storyteller.js
+// create -l if it doesnt exist
 try {
   fs.readFileSync(argv.l)
 } catch (e) {
   fs.writeFileSync(argv.l, 0)
 }
-#+END_SRC
-***** DONE read -l
-CLOSED: [2016-02-11 Thu 22:22]
-#+BEGIN_SRC js :tangle storyteller.js
+// read -l to get the passage number
 var passage_num = parseInt(fs.readFileSync(argv.l, 'utf8'))
-#+END_SRC
-**** DONE the script prints to stdout a passage from the story
-CLOSED: [2016-02-11 Thu 22:23]
-#+BEGIN_SRC js :tangle storyteller.js
+// the script prints today's passage from the story over stdout
 var passage = story.split('\n\n')[passage_num]
 console.log(passage)
-#+END_SRC
-**** TODO finally, we increment line and write this updated number to the log -l
-#+BEGIN_SRC js :tangle storyteller.js
+// finally, we increment line 
+// and write this updated number to the log file passed in as -l
 fs.writeFileSync(argv.l, passage_num++)
 #+END_SRC
 
 *** DONE weather.js
 CLOSED: [2016-02-11 Thu 23:33]
+
+this prints the weather in berkeley
+
+uses the [[https://openweathermap.org][openweathermap]] api 
+
 #+BEGIN_SRC js :tangle weather.js
 var request = require('request')
 
