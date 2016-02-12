@@ -4,11 +4,13 @@ mr good morning machine (mgmm) prints me a wakeup script, over my [[https://gith
 
 this is not meant to run not on the printer. i run it on a machine i leave at work. it communicates with the printer through an [[https://github.com/elsehow/indra-server][indra]] server.
 
-** TODO setup
+** DONE setup
+CLOSED: [2016-02-11 Thu 23:52]
 
 first, we'll install the software. then, we'll configure cron to run our script in the mornings.
 
-*** TODO installation
+*** DONE installation
+CLOSED: [2016-02-11 Thu 23:52]
 
 first, install the dependencies + make 
 
@@ -28,7 +30,19 @@ now, you can give it a test with
 bash mgmm.sh
 #+END_SRC
 
-*** TODO configuring cron 
+*** DONE configuring cron 
+CLOSED: [2016-02-11 Thu 23:51]
+
+now we want cron to run this script in the mornings
+
+add a line like this to your crontab:
+
+#+BEGIN_SRC
+* * * * * cd /home/ffff/BitTorrent\ Sync/Projects/mr-good-morning-machine; npm start 
+#+END_SRC
+
+just be sure to replace that path with the path to wherever you downloaded this repository
+
 
 * DONE implementation
 CLOSED: [2016-02-11 Thu 23:36]
