@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "request": "^2.69.0",
+    "request-json": "^0.5.5"
+  },
+  "name": "mr-good-morning-machine",
+  "description": "* mr good morning machine",
+  "version": "1.0.0",
+  "main": "client.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "bash mgmm.sh"
+  },
+  "author": "",
+  "license": "ISC"
+}

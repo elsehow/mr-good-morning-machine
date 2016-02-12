@@ -10,57 +10,171 @@ first, we'll install the software. then, we'll configure cron to run our script 
 
 *** TODO installation
 
+first, install the dependencies + make 
+
+#+BEGIN_SRC shell
+npm install
+#+END_SRC
+
+now, write a file =config.js= with your printer api key. should look like this:
+
+#+BEGIN_SRC js
+module.exports = 'my-very-secret-api-key'
+#+END_SRC
+
+now, you can give it a test with
+
+#+BEGIN_SRC shell
+bash mgmm.sh
+#+END_SRC
+
 *** TODO configuring cron 
 
-* implementation
+* DONE implementation
+CLOSED: [2016-02-11 Thu 23:36]
 
-** mgmm.py
+** DONE org-agenda.sh
+CLOSED: [2016-02-11 Thu 22:10]
+
+this bash script can export our org agenda:
+
+#+BEGIN_SRC shell :tangle org-agenda.sh
+#!/bin/bash
+emacs -batch -eval '(org-batch-agenda "a" 
+org-agenda-span (quote day) 
+org-agenda-files 
+(quote ("~/Notes/"))
+)))'
+#+END_SRC
+
+** DONE storyteller.js
+CLOSED: [2016-02-11 Thu 22:35]
+
+#+BEGIN_SRC js :tangle storyteller.js
+'use strict';
+var fs = require('fs')
+#+END_SRC
+
+*** DONE we pass in a txt file -s and a log -l
+CLOSED: [2016-02-11 Thu 22:33]
+#+BEGIN_SRC js :tangle storyteller.js
+var argv = require('minimist')(process.argv.slice(2));
+#+END_SRC
+**** DONE try reading -s
+CLOSED: [2016-02-11 Thu 22:33]
+#+BEGIN_SRC js :tangle storyteller.js
+var story = fs.readFileSync(argv.s, 'utf8')
+#+END_SRC
+**** DONE create -l if it doesnt exist
+CLOSED: [2016-02-11 Thu 22:33]
+#+BEGIN_SRC js :tangle storyteller.js
+try {
+  fs.readFileSync(argv.l)
+} catch (e) {
+  fs.writeFileSync(argv.l, 0)
+}
+#+END_SRC
+**** DONE read -l
+CLOSED: [2016-02-11 Thu 22:22]
+#+BEGIN_SRC js :tangle storyteller.js
+var passage_num = parseInt(fs.readFileSync(argv.l, 'utf8'))
+#+END_SRC
+*** DONE the script prints to stdout a passage from the story
+CLOSED: [2016-02-11 Thu 22:23]
+#+BEGIN_SRC js :tangle storyteller.js
+var passage = story.split('\n\n')[passage_num]
+console.log(passage)
+#+END_SRC
+*** TODO finally, we increment line and write this updated number to the log -l
+#+BEGIN_SRC js :tangle storyteller.js
+fs.writeFileSync(argv.l, passage_num++)
+#+END_SRC
+
+** DONE weather.js
+CLOSED: [2016-02-11 Thu 23:33]
+#+BEGIN_SRC js :tangle weather.js
+var request = require('request')
+
+function formatWeather (day) {
+  return `~${day.weather[0].description}~\n` +
+    `day: ${day.temp.day}F\n` +
+    `eve: ${day.temp.eve}F\n` +
+    `night: ${day.temp.night}F\n\n` +
+    `${day.humidity}% humidity ` +
+    `${day.clouds}% cloud cover ` +
+    `wind speed ${day.speed} m/h`
+}
+
+
+request.get('http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&lon=-122.2839&appid=44db6a862fba0b067b1930da0d769e98&units=imperial', (err, res, body) => {
+  var today = JSON.parse(body).list[0]
+  console.log(formatWeather(today))
+})
+#+END_SRC
+** DONE make-wakeup-script.sh
+CLOSED: [2016-02-11 Thu 23:36]
 
 the python script prints stuff on the command line
 
-#+BEGIN_SRC python :tangle mgmm.py
-#!/bin/python
+#+BEGIN_SRC python :tangle make-wakeup-script.sh
+#!/bin/bash
+function whitespace () {
+  echo ""
+  echo ""
+}
+# print a little greeting
+echo "good morning nick c:"
+echo "---------------------"
 #+END_SRC
 
-*** TODO prompt to write down dreams
-
-*** TODO grab a random quote
-
-**** unix koan for now
-
-**** poetic edda
-
-**** tao te ching
-
-*** TODO the weather 
-
-*** TODO my org agenda for the day
-
-**** how to do this?
-
-here's an example of how to execute some code in emacs frmo bash
-
-#+BEGIN_SRC shell
-emacs --batch --user $USER --eval "(progn (org-agenda-list nil nil 'year) (write-file \"cal.ics\"))"
+*** DONE prompt me to write down my dreams
+#+BEGIN_SRC python :tangle make-wakeup-script.sh
+echo "What did you dream about?"
+whitespace
+#+END_SRC
+*** DONE unix fortune
+CLOSED: [2016-02-11 Thu 21:51]
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+fortune
+whitespace
+#+END_SRC
+*** DONE poetic edda
+CLOSED: [2016-02-11 Thu 22:35]
+i'll work myself day by day thruogh the poetic edda
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+echo "the poetic edda"
+echo "---------------"
+node storyteller.js -s havamal.txt -l havamal.log
+whitespace
+#+END_SRC
+*** DONE the weather 
+CLOSED: [2016-02-11 Thu 23:34]
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+echo "weather berkeley ca"
+echo "~~~~~~~~~~~~~~~~~~~~"
+node weather.js
+whitespace
+#+END_SRC
+*** DONE my org agenda for the day
+CLOSED: [2016-02-11 Thu 21:52]
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+bash org-agenda.sh
 #+END_SRC
 
-so, what is the program that gets the agenda?
-
-#+BEGIN_SRC elisp
-
-(progn (org-agenda-list 'day 'month 'year))
-
-#+END_SRC
-
-*** TODO hacker news headlines
-
-*** TODO NYtimes headlines
-
-** TODO mgmm.sh
+** DONE mgmm.sh
+CLOSED: [2016-02-11 Thu 22:10]
 
 sends the whole thing in a message to the server
 
 #+BEGIN_SRC shell :tangle mgmm.sh
 #!/bin/bash
-node client.js "`python mgmm.py`"
+node client.js "`bash make-wakeup-script.sh`"
 #+END_SRC
+
+* future plans
+** TODO tao te ching
+** TODO oblique strategies
+** TODO hacker news headlines
+another api thing
+** TODO NYtimes headlines
+another api thing or scraping
