@@ -2,7 +2,9 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "request": "^2.69.0",
-    "request-json": "^0.5.5"
+    "request-json": "^0.5.5",
+    "request-sync": "^1.0.0",
+    "sync-request": "^3.0.0"
   },
   "name": "mr-good-morning-machine",
   "description": "* mr good morning machine",

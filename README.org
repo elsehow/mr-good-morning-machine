@@ -43,9 +43,7 @@ add a line like this to your crontab:
 
 just be sure to replace that path with the path to wherever you downloaded this repository
 
-
-* DONE implementation
-CLOSED: [2016-02-11 Thu 23:36]
+* implementation
 
 here is all the code for mr good morning machine
 
@@ -141,6 +139,32 @@ request.get('http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&l
   console.log(formatWeather(today))
 })
 #+END_SRC
+*** DONE top-nyt.json
+
+will synchronously grab the top 3 homepage headlines and top 5 world headlines from nyt
+
+#+BEGIN_SRC js :tangle top-nyt.js
+var request = require('sync-request')
+var api_key = '83a1f6fca9d35d99fe1d0d8b113a44ce:10:65643897'
+
+// top n headlines in any section
+function top_headlines (section, n) {
+
+  function uri (section) {
+    return `http://api.nytimes.com/svc/topstories/v1/${section}.json?api-key=${api_key}`
+  }
+
+  var r = request('GET', uri(section))
+
+  var stories = JSON.parse(r.body).results
+
+  // top 5 headlines
+  return stories.slice(0,n).map(r => r.title)
+}
+
+console.log(top_headlines('home', 3).join('\n'))
+console.log(top_headlines('world', 5).join('\n'))
+#+END_SRC
 ** DONE make-wakeup-script.sh
 CLOSED: [2016-02-11 Thu 23:36]
 
@@ -153,7 +177,6 @@ function whitespace () {
   echo ""
 }
 #+END_SRC
-
 *** DONE prompt me to write down my dreams
 #+BEGIN_SRC python :tangle make-wakeup-script.sh
 echo "What did you dream about?"
@@ -188,6 +211,13 @@ echo "~~~~~~~~~~~~~~~~~~~~"
 node weather.js
 whitespace
 #+END_SRC
+*** DONE top nytimes headlines
+CLOSED: [2016-02-12 Fri 10:01]
+#+BEGIN_SRC shell :tangle make-wakeup-script.sh
+echo "=the nyt=="
+node top-nyt.js
+whitespace
+#+END_SRC
 
 ** DONE mgmm.sh
 CLOSED: [2016-02-11 Thu 22:10]
@@ -199,7 +229,9 @@ sends the whole thing in a message to the server
 node client.js "`bash make-wakeup-script.sh`"
 #+END_SRC
 
-* future plans
+* TODO future plans
+** DONE clean up org agenda output
+CLOSED: [2016-02-12 Fri 09:35]
 ** TODO tao te ching
 ** TODO oblique strategies
 ** TODO hacker news headlines

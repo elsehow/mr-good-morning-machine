@@ -22,3 +22,7 @@ echo "weather berkeley ca"
 echo "~~~~~~~~~~~~~~~~~~~~"
 node weather.js
 whitespace
+
+echo "=the nyt=="
+node top-nyt.js
+whitespace
