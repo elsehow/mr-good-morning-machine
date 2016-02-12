@@ -1,0 +1,66 @@
+* mr good morning machine
+
+mr good morning machine (mgmm) prints me a wakeup script, over my [[https://github.com/elsehow/sap/][iot printer, sap]].
+
+this is not meant to run not on the printer. i run it on a machine i leave at work. it communicates with the printer through an [[https://github.com/elsehow/indra-server][indra]] server.
+
+** TODO setup
+
+first, we'll install the software. then, we'll configure cron to run our script in the mornings.
+
+*** TODO installation
+
+*** TODO configuring cron 
+
+* implementation
+
+** mgmm.py
+
+the python script prints stuff on the command line
+
+#+BEGIN_SRC python :tangle mgmm.py
+#!/bin/python
+#+END_SRC
+
+*** TODO prompt to write down dreams
+
+*** TODO grab a random quote
+
+**** unix koan for now
+
+**** poetic edda
+
+**** tao te ching
+
+*** TODO the weather 
+
+*** TODO my org agenda for the day
+
+**** how to do this?
+
+here's an example of how to execute some code in emacs frmo bash
+
+#+BEGIN_SRC shell
+emacs --batch --user $USER --eval "(progn (org-agenda-list nil nil 'year) (write-file \"cal.ics\"))"
+#+END_SRC
+
+so, what is the program that gets the agenda?
+
+#+BEGIN_SRC elisp
+
+(progn (org-agenda-list 'day 'month 'year))
+
+#+END_SRC
+
+*** TODO hacker news headlines
+
+*** TODO NYtimes headlines
+
+** TODO mgmm.sh
+
+sends the whole thing in a message to the server
+
+#+BEGIN_SRC shell :tangle mgmm.sh
+#!/bin/bash
+node client.js "`python mgmm.py`"
+#+END_SRC
