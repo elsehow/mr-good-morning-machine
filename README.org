@@ -121,7 +121,8 @@ this prints the weather in berkeley
 uses the [[https://openweathermap.org][openweathermap]] api 
 
 #+BEGIN_SRC js :tangle weather.js
-var request = require('request')
+var request = require('request'),
+    uri = 'http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&lon=-122.2839&appid=44db6a862fba0b067b1930da0d769e98&units=imperial'
 
 function formatWeather (day) {
   return `~${day.weather[0].description}~\n` +
@@ -133,8 +134,7 @@ function formatWeather (day) {
     `wind speed ${day.speed} m/h`
 }
 
-
-request.get('http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&lon=-122.2839&appid=44db6a862fba0b067b1930da0d769e98&units=imperial', (err, res, body) => {
+request.get(uri, (err, res, body) => {
   var today = JSON.parse(body).list[0]
   console.log(formatWeather(today))
 })
@@ -151,7 +151,7 @@ var api_key = '83a1f6fca9d35d99fe1d0d8b113a44ce:10:65643897'
 function top_headlines (section, n) {
 
   function uri (section) {
-    return `http://api.nytimes.com/svc/topstories/v1/${section}.json?api-key=${api_key}`
+    return `http://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${api_key}`
   }
 
   var r = request('GET', uri(section))
@@ -162,8 +162,8 @@ function top_headlines (section, n) {
   return stories.slice(0,n).map(r => r.title)
 }
 
-console.log(top_headlines('home', 3).join('\n'))
-console.log(top_headlines('world', 5).join('\n'))
+console.log(top_headlines('home', 2).join('\n'))
+console.log(top_headlines('world', 2).join('\n'))
 #+END_SRC
 ** DONE make-wakeup-script.sh
 CLOSED: [2016-02-11 Thu 23:36]

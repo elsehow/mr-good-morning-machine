@@ -1,4 +1,5 @@
-var request = require('request')
+var request = require('request'),
+    uri = 'http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&lon=-122.2839&appid=44db6a862fba0b067b1930da0d769e98&units=imperial'
 
 function formatWeather (day) {
   return `~${day.weather[0].description}~\n` +
@@ -10,8 +11,7 @@ function formatWeather (day) {
     `wind speed ${day.speed} m/h`
 }
 
-
-request.get('http://api.openweathermap.org/data/2.5/forecast/daily?lat=37.8554&lon=-122.2839&appid=44db6a862fba0b067b1930da0d769e98&units=imperial', (err, res, body) => {
+request.get(uri, (err, res, body) => {
   var today = JSON.parse(body).list[0]
   console.log(formatWeather(today))
 })
