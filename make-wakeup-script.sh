@@ -4,25 +4,20 @@ function whitespace () {
   echo ""
 }
 
-echo "What did you dream about?"
+echo "# what did you dream?"
 whitespace
 
-fortune
-whitespace
-
-echo "the poetic edda"
-echo "---------------"
+echo "## the poetic edda"
 node storyteller.js -s havamal.txt -l havamal.log
 whitespace
 
 bash org-agenda.sh
 whitespace
 
-echo "weather berkeley ca"
-echo "~~~~~~~~~~~~~~~~~~~~"
+echo "## weather berkeley ca"
 node weather.js
 whitespace
 
-echo "=the nyt=="
+echo "## the nyt"
 node top-nyt.js
 whitespace
