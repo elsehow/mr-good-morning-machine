@@ -179,14 +179,14 @@ function whitespace () {
 #+END_SRC
 *** DONE prompt me to write down my dreams
 #+BEGIN_SRC python :tangle make-wakeup-script.sh
-echo "# what did you dream?"
+echo "what did you dream?"
 whitespace
 #+END_SRC
 *** DONE poetic edda
 CLOSED: [2016-02-11 Thu 22:35]
 i'll work myself day by day thruogh the poetic edda
 #+BEGIN_SRC shell :tangle make-wakeup-script.sh
-echo "## the poetic edda"
+echo "the poetic edda"
 node storyteller.js -s havamal.txt -l havamal.log
 whitespace
 #+END_SRC
@@ -199,18 +199,23 @@ whitespace
 *** DONE the weather 
 CLOSED: [2016-02-11 Thu 23:34]
 #+BEGIN_SRC shell :tangle make-wakeup-script.sh
-echo "## weather berkeley ca"
+echo "=weather berkeley ca="
 node weather.js
 whitespace
 #+END_SRC
 *** DONE top nytimes headlines
 CLOSED: [2016-02-12 Fri 10:01]
 #+BEGIN_SRC shell :tangle make-wakeup-script.sh
-echo "## the nyt"
+echo "the nyt"
 node top-nyt.js
 whitespace
 #+END_SRC
 
+*** DONE prompt me to write down daily goals
+#+BEGIN_SRC python :tangle make-wakeup-script.sh
+echo "what are your goals for the day?"
+whitespace
+#+END_SRC
 ** DONE mgmm.sh
 CLOSED: [2016-02-11 Thu 22:10]
 
